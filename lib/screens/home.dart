@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:todo_app/constants/color.dart';
 
@@ -20,8 +22,55 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
         appBar: _buildAppBar(),
         body: Container(
-          child: Text('Hello World'),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          color: tdBg,
+          child: Column(children: [
+            searchBox(),
+            Expanded(
+                child: ListView(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Text('All Tasks',
+                      style: TextStyle(
+                        color: tdBlack,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      )),
+                )
+              ],
+            ))
+          ]),
         ));
+  }
+
+  Widget searchBox() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      decoration: BoxDecoration(
+        color: Colors.white54,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: TextField(
+          decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(0),
+        prefixIcon: Icon(
+          Icons.search,
+          color: tdBlack,
+          size: 20,
+        ),
+        prefixIconConstraints: BoxConstraints(
+          minWidth: 25,
+          maxHeight: 20,
+        ),
+        border: InputBorder.none,
+        hintText: 'Search',
+        hintStyle: TextStyle(
+          color: tdGrey,
+          fontSize: 16,
+        ),
+      )),
+    );
   }
 
   AppBar _buildAppBar() {
@@ -31,12 +80,12 @@ class MyHomePage extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(
+            const Icon(
               Icons.menu,
               color: tdBlack,
               size: 30,
             ),
-            Container(
+            SizedBox(
               height: 50,
               width: 50,
               child: ClipRRect(

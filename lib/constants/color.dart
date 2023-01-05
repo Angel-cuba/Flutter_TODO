@@ -7,4 +7,4 @@ const Color tdBlack = Color(0xFF000000);
 const Color tdWhite = Color(0xFFFFFFFF);
 const Color tdGrey = Color(0xFF9E9E9E);
 
-const Color tdBg = Color(0xFF6A6A6A);
+const Color tdBg = Color.fromARGB(98, 202, 202, 202);
