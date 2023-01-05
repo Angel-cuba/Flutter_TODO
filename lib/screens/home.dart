@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:todo_app/constants/color.dart';
+import 'package:todo_app/widgets/todo_item.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key, required this.title});
@@ -37,7 +38,8 @@ class MyHomePage extends StatelessWidget {
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                       )),
-                )
+                ),
+                TodoItem(),
               ],
             ))
           ]),
