@@ -5,9 +5,16 @@ import 'package:todo_app/constants/color.dart';
 import 'package:todo_app/model/todo.dart';
 import 'package:todo_app/widgets/todo_item.dart';
 
-class MyHomePage extends StatelessWidget {
-  MyHomePage({Key? key}) : super(key: key);
+import '../widgets/search.dart';
 
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   final todosList = Todo.todoList();
 
   @override
@@ -35,8 +42,9 @@ class MyHomePage extends StatelessWidget {
                     ),
                     for (Todo todoData in todosList)
                       TodoItem(
-                        todo: todoData,
-                      ),
+                          todo: todoData,
+                          onTodoChange: _handleTodoChange,
+                          onTodoDeleted: () {}),
                   ],
                 ))
               ]),
@@ -75,7 +83,7 @@ class MyHomePage extends StatelessWidget {
                             print('Add new task');
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: tdBlue,
+                            backgroundColor: tdBlue,
                             minimumSize: Size(60, 60),
                             elevation: 10,
                             shape: CircleBorder(),
@@ -87,33 +95,10 @@ class MyHomePage extends StatelessWidget {
         ));
   }
 
-  Widget searchBox() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      decoration: BoxDecoration(
-        color: Colors.white54,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: TextField(
-          decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(0),
-        prefixIcon: Icon(
-          Icons.search,
-          color: tdBlack,
-          size: 20,
-        ),
-        prefixIconConstraints: BoxConstraints(
-          minWidth: 25,
-          maxHeight: 20,
-        ),
-        border: InputBorder.none,
-        hintText: 'Search',
-        hintStyle: TextStyle(
-          color: tdGrey,
-          fontSize: 16,
-        ),
-      )),
-    );
+  void _handleTodoChange(Todo todo) {
+    setState(() {
+      todo.isDone = !todo.isDone;
+    });
   }
 
   AppBar _buildAppBar() {
