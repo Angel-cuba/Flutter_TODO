@@ -40,6 +40,11 @@ class MyHomePage extends StatelessWidget {
                       )),
                 ),
                 TodoItem(),
+                TodoItem(),
+                TodoItem(),
+                TodoItem(),
+                TodoItem(),
+                TodoItem(),
               ],
             ))
           ]),
