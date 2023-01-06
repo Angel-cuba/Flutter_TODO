@@ -47,7 +47,7 @@ class TodoItem extends StatelessWidget {
               iconSize: 20,
               icon: Icon(Icons.delete),
               onPressed: () {
-                print('Delete');
+                onTodoDeleted(todo.id);
               },
             ),
           ),
