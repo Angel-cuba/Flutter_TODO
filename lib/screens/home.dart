@@ -16,7 +16,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final todosList = Todo.todoList();
+  List<Todo> _todos = [];
   final _todoController = TextEditingController();
+
+  @override
+  void initState() {
+    _todos = todosList;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             fontWeight: FontWeight.w600,
                           )),
                     ),
-                    for (Todo todoData in todosList)
+                    for (Todo todoData in _todos)
                       TodoItem(
                           todo: todoData,
                           onTodoChange: _handleTodoChange,
@@ -115,6 +122,51 @@ class _MyHomePageState extends State<MyHomePage> {
           id: DateTime.now().microsecondsSinceEpoch.toString(), title: todo));
     });
     _todoController.clear();
+  }
+
+  void _runFilter(String searchValue) {
+    List<Todo> result = [];
+    if (searchValue.isEmpty) {
+      result = todosList;
+    } else {
+      result = todosList
+          .where((element) =>
+              element.title!.toLowerCase().contains(searchValue.toLowerCase()))
+          .toList();
+    }
+    setState(() {
+      _todos = result;
+    });
+  }
+
+  Widget searchBox() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      decoration: BoxDecoration(
+        color: Colors.white54,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: TextField(
+          onChanged: (searchValue) => _runFilter(searchValue),
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(0),
+            prefixIcon: Icon(
+              Icons.search,
+              color: tdBlack,
+              size: 20,
+            ),
+            prefixIconConstraints: BoxConstraints(
+              minWidth: 25,
+              maxHeight: 20,
+            ),
+            border: InputBorder.none,
+            hintText: 'Search',
+            hintStyle: TextStyle(
+              color: tdGrey,
+              fontSize: 16,
+            ),
+          )),
+    );
   }
 
   AppBar _buildAppBar() {
