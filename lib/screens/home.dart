@@ -14,30 +14,76 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: _buildAppBar(),
-        body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          color: tdBg,
-          child: Column(children: [
-            searchBox(),
-            Expanded(
-                child: ListView(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Text('All Tasks',
-                      style: TextStyle(
-                        color: tdBlack,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      )),
-                ),
-                for (Todo todoData in todosList)
-                  TodoItem(
-                    todo: todoData,
-                  ),
-              ],
-            ))
-          ]),
+        body: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              color: tdBg,
+              child: Column(children: [
+                searchBox(),
+                Expanded(
+                    child: ListView(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      child: Text('All Tasks',
+                          style: TextStyle(
+                            color: tdBlack,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          )),
+                    ),
+                    for (Todo todoData in todosList)
+                      TodoItem(
+                        todo: todoData,
+                      ),
+                  ],
+                ))
+              ]),
+            ),
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                            margin: EdgeInsets.only(
+                                bottom: 20, left: 20, right: 10),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 5),
+                            decoration: BoxDecoration(
+                                color: tdWhite,
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: tdGrey,
+                                      offset: Offset(0.0, 0.0),
+                                      blurRadius: 10,
+                                      spreadRadius: 0.0)
+                                ],
+                                borderRadius: BorderRadius.circular(10)),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Add new task',
+                                border: InputBorder.none,
+                              ),
+                            ))),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 20, right: 20),
+                      child: ElevatedButton(
+                          child: Text('+', style: TextStyle(fontSize: 25)),
+                          onPressed: () {
+                            print('Add new task');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: tdBlue,
+                            minimumSize: Size(60, 60),
+                            elevation: 10,
+                            shape: CircleBorder(),
+                          )),
+                    )
+                  ],
+                ))
+          ],
         ));
   }
 
