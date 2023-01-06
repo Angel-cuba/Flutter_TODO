@@ -16,6 +16,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final todosList = Todo.todoList();
+  final _todoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ],
                                 borderRadius: BorderRadius.circular(10)),
                             child: TextField(
+                              controller: _todoController,
                               decoration: InputDecoration(
                                 hintText: 'Add new task',
                                 border: InputBorder.none,
@@ -80,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: ElevatedButton(
                           child: Text('+', style: TextStyle(fontSize: 25)),
                           onPressed: () {
-                            print('Add new task');
+                            _addTodoItem(_todoController.text);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: tdBlue,
@@ -105,6 +107,14 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       todosList.removeWhere((element) => element.id == id);
     });
+  }
+
+  void _addTodoItem(String todo) {
+    setState(() {
+      todosList.add(Todo(
+          id: DateTime.now().microsecondsSinceEpoch.toString(), title: todo));
+    });
+    _todoController.clear();
   }
 
   AppBar _buildAppBar() {
