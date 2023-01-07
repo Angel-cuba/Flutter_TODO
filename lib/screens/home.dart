@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             fontWeight: FontWeight.w600,
                           )),
                     ),
-                    for (Todo todoData in _todos)
+                    for (Todo todoData in _todos.reversed)
                       TodoItem(
                           todo: todoData,
                           onTodoChange: _handleTodoChange,
